@@ -197,7 +197,10 @@ class Wizard extends UI5Element {
 		// due to user scroll.
 		this.selectionRequestedByScroll = false;
 
-		this.initItemNavigation();
+		this._itemNavigation = new ItemNavigation(this, {
+			navigationMode: NavigationMode.Horizontal,
+			getItemsCallback: () => this.enabledStepsInHeaderDOM,
+		});
 
 		this._onResize = this.onResize.bind(this);
 
@@ -822,19 +825,6 @@ class Wizard extends UI5Element {
 
 			this.selectedStepIndex = stepToSelectIndex;
 		}
-	}
-
-	/**
-	 * Initializes the <code>ItemNavigation</code>
-	 * that controls the navigation between the steps in the navigation header.
-	 * @private
-	 */
-	initItemNavigation() {
-		this._itemNavigation = new ItemNavigation(this, {
-			navigationMode: NavigationMode.Horizontal,
-		});
-
-		this._itemNavigation.getItemsCallback = () => this.enabledStepsInHeaderDOM;
 	}
 
 	/**
